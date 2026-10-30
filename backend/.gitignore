@@ -1,5 +1,7 @@
-﻿venv/
+﻿.env
+.venv/
+venv/
 __pycache__/
 *.pyc
+backend/locallink.db
 backend/uploads/*
-!backend/uploads/.gitkeep
