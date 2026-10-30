@@ -1,0 +1,276 @@
+body {
+  margin: 0;
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  background: #f0f4f8;
+  color: #102a43;
+}
+
+.navbar {
+  background: #0b2545;
+  color: white;
+  position: sticky;
+  top: 0;
+  z-index: 1000;
+  padding: 1rem 0;
+}
+
+.container {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 2rem;
+}
+
+.navbar a {
+  color: white;
+  text-decoration: none;
+  font-weight: bold;
+}
+
+.navbar .btn {
+  color: #232551;
+}
+
+#profileIcon img {
+  vertical-align: middle;
+  height: 32px;
+  width: 35px;
+  border-radius: 50%;
+  object-fit: cover;
+}
+
+#profileIcon {
+  margin-left: 0.5rem;
+}
+
+.navbar ul li {
+  display: flex;
+  align-items: center;
+}
+
+.navbar ul {
+  display: flex;
+  align-items: center;
+  gap: 1.2rem;
+}
+
+.hero {
+  background: linear-gradient(to right, #0b2545, #274c77);
+  color: white;
+  text-align: center;
+  padding: 6rem 2rem;
+}
+
+.hero-text {
+  font-size: x-large;
+}
+
+.full-screen {
+  min-height: 100vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+  background-image: url(/Images/back.png);
+  background-size: cover;
+}
+
+.btn {
+  background: #fcca46;
+  color: #0b2545;
+  padding: 0.75rem 1.5rem;
+  border-radius: 8px;
+  text-decoration: none;
+  font-weight: bold;
+  transition: all 0.3s ease;
+}
+
+.btn:hover {
+  background: #ffb703;
+}
+
+.features {
+  padding: 4rem 2rem;
+  background: #e9eff5;
+  text-align: center;
+}
+
+.features h2 {
+  margin-bottom: 2rem;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  gap: 2rem;
+}
+
+.feature-card {
+  background: white;
+  padding: 1.5rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.1);
+  border: 2px solid #0b254545;
+}
+
+.feature-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.441);
+}
+
+.shop-showcase {
+  padding: 4rem 2rem;
+  background: #fdfdfd;
+}
+
+.shop-showcase img {
+  width: 100%;
+  border-radius: 10px;
+}
+
+.shop-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+  gap: 1.25rem;
+}
+
+.shop-image {
+  width: 100%;
+  height: 350px;
+  border-radius: 10px;
+}
+
+.card {
+  background: white;
+  padding: 1rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.491);
+  text-align: center;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 12px 28px rgba(0, 0, 0, 0.441);
+}
+
+.cta {
+  text-align: center;
+  padding: 4rem 2rem;
+  background: #0b2545;
+  color: white;
+}
+
+.footer {
+  background: #102a43;
+  color: white;
+  text-align: center;
+  padding: 1rem;
+}
+
+.review-header {
+  text-align: center;
+  margin-bottom: 60px;
+}
+
+.review-header h2 {
+  font-size: 2em;
+  margin-bottom: 10px;
+}
+
+.carousel-container {
+  position: relative;
+  overflow: hidden;
+  max-width: 1200px;
+  margin: auto;
+  height: 380px;
+}
+
+.carousel-track {
+  display: flex;
+  transition: transform 0.5s ease-in-out;
+  gap: 30px;
+}
+
+.carousel-slide {
+  min-width: calc(100% - 30px);
+  background: #0b2545;
+  padding: 20px;
+  border-radius: 10px;
+  height: 200px;
+}
+
+.review-text {
+  font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+  margin-bottom: 20px;
+  color: #fdfdfd;
+  font-size: 20px;
+}
+
+.reviewer {
+  display: flex;
+  align-items: center;
+}
+
+.reviewer img {
+  width: 60px;
+  height: 60px;
+  border-radius: 50%;
+}
+
+.reviewer-info {
+  margin-left: 10px;
+}
+
+.reviewer-info p {
+  margin: 0;
+  color: #facc15;
+}
+
+.reviewer-info .name {
+  color: #facc15;
+  text-transform: uppercase;
+}
+
+.quote-icon {
+  font-size: 2em;
+  margin-left: auto;
+  color: #fdfdfd;
+}
+
+.pagination {
+  text-align: center;
+  margin-top: 20px;
+}
+
+.pagination span {
+  display: inline-block;
+  width: 10px;
+  height: 10px;
+  margin: 5px;
+  border-radius: 50%;
+  background: #888;
+  cursor: pointer;
+}
+
+.pagination .active {
+  background: #facc15;
+}
+
+@media (min-width: 768px) {
+  .carousel-slide {
+    min-width: calc(50% - 30px);
+  }
+}
+
+@media (min-width: 1024px) {
+  .carousel-slide {
+    min-width: calc(33.333% - 30px);
+  }
+}
+
+.apply-btn {
+  margin-left: 20px;
+  margin-bottom: 3px;
+}

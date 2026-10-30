@@ -1,0 +1,416 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalLink - Register Your Shop</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      body {
+        background: #f0f4f8;
+      }
+
+      .register-hero {
+        background-image: url(/Images/register-bg.png);
+        background-size: cover;
+        color: #fff;
+        padding: 3rem 1.5rem;
+        text-align: center;
+      }
+
+      .form-shell {
+        max-width: 1000px;
+        margin: -2rem auto 3rem;
+        background: #fff;
+        border-radius: 16px;
+        box-shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        padding: 2rem;
+      }
+
+      .form-title {
+        margin-bottom: 1.5rem;
+        text-align: center;
+        color: #0b2545;
+      }
+
+      form .grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem 1rem;
+      }
+
+      .form-group {
+        display: flex;
+        flex-direction: column;
+      }
+
+      label {
+        font-weight: 600;
+        margin-bottom: 0.35rem;
+        color: #102a43;
+      }
+
+      input,
+      select,
+      textarea {
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #f9fafb;
+        padding: 0.75rem 0.9rem;
+        font-size: 1rem;
+        transition: 0.25s border, 0.25s background;
+      }
+
+      input:focus,
+      select:focus,
+      textarea:focus {
+        border-color: #0b2545;
+        background: #fff;
+        outline: none;
+      }
+
+      textarea {
+        resize: vertical;
+        min-height: 110px;
+      }
+
+      .inline {
+        display: flex;
+        align-items: center;
+        gap: 0.5rem;
+      }
+
+      .error {
+        color: red;
+        font-size: 0.85rem;
+        margin-top: 0.25rem;
+        display: none;
+      }
+
+      .success {
+        display: none;
+        margin-bottom: 1rem;
+        padding: 0.9rem 1rem;
+        border-radius: 8px;
+        background: #d1fae5;
+        color: #065f46;
+        border: 1px solid #10b981;
+        font-weight: 600;
+        text-align: center;
+      }
+
+      .actions {
+        margin-top: 1.5rem;
+        display: flex;
+        gap: 0.75rem;
+        justify-content: flex-end;
+        flex-wrap: wrap;
+      }
+
+      .btn {
+        background: #fcca46;
+        color: #0b2545;
+        padding: 0.75rem 1.5rem;
+        border-radius: 8px;
+        text-decoration: none;
+        font-weight: bold;
+        border: none;
+        cursor: pointer;
+        transition: all 0.3s ease;
+      }
+
+      .btn:hover {
+        background: #ffb703;
+      }
+
+      .btn.secondary {
+        background: #cbd5e1;
+        color: #0b2545;
+      }
+
+      @media (max-width: 600px) {
+        .actions {
+          justify-content: center;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="container">
+        <h1 class="logo">LocalLink</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="login.html">Login</a></li>
+            <li><a href="signup.html">Sign Up</a></li>
+            <li><a href="register.html" class="btn">Register Business</a></li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- Header -->
+    <section class="register-hero">
+      <h1>Register Your Shop on LocalLink</h1>
+      <p>Get discovered by customers around you</p>
+    </section>
+
+    <!-- Form -->
+    <div class="form-shell">
+      <div id="successBox" class="success">
+        Your shop has been registered (placeholder)!
+      </div>
+
+      <h2 class="form-title">Shop Registration Form</h2>
+
+      <form id="shopForm" novalidate>
+        <div class="grid">
+          <div class="form-group">
+            <label for="shopName">Shop Name *</label>
+            <input type="text" id="shopName" name="shopName" required />
+            <span class="error" data-for="shopName"
+              >Shop name is required.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="ownerName">Owner Name *</label>
+            <input type="text" id="ownerName" name="ownerName" required />
+            <span class="error" data-for="ownerName"
+              >Owner name is required.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="email">Email *</label>
+            <input type="email" id="email" name="email" required />
+            <span class="error" data-for="email">Enter a valid email.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="phone">Phone (10 digits, India) *</label>
+            <input
+              type="tel"
+              id="phone"
+              name="phone"
+              maxlength="10"
+              pattern="\\d{10}"
+              required
+            />
+            <span class="error" data-for="phone"
+              >Enter a valid 10-digit phone number.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="category">Category *</label>
+            <select id="category" name="category" required>
+              <option value="">-- Select --</option>
+              <option>Groceries</option>
+              <option>Fashion</option>
+              <option>Gifts</option>
+              <option>Electronics</option>
+              <option>Bakery</option>
+              <option>Pharmacy</option>
+              <option>Restaurant/Cafe</option>
+              <option>Salon/Spa</option>
+              <option>Repair & Maintenance</option>
+              <option>Services</option>
+              <option>Other</option>
+            </select>
+            <span class="error" data-for="category"
+              >Please select a category.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="website">Website (optional)</label>
+            <input
+              type="url"
+              id="website"
+              name="website"
+              placeholder="https://example.com"
+            />
+            <span class="error" data-for="website"
+              >Enter a valid URL (starts with http or https).</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="gst">GST Number *</label>
+            <input
+              type="text"
+              id="gst"
+              name="gst"
+              maxlength="15"
+              placeholder="15 characters GSTIN"
+              required
+            />
+            <span class="error" data-for="gst"
+              >GSTIN should be 15 characters.</span
+            >
+          </div>
+          <!-- Inside the form's grid, after GST Number field -->
+          <div class="form-group">
+            <label for="shopAct">Shop Act License Number *</label>
+            <input
+              type="text"
+              id="shopAct"
+              name="shopAct"
+              placeholder="Enter Shop Act License Number"
+              required
+            />
+            <span class="error" data-for="shopAct"
+              >Shop Act License is required.</span
+            >
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="ownerIdProof"
+              >Owner ID Proof (Aadhaar / PAN, max 2MB) *</label
+            >
+            <input
+              type="file"
+              id="ownerIdProof"
+              name="ownerIdProof"
+              accept=".pdf,image/*"
+              required
+            />
+            <span class="error" data-for="ownerIdProof">
+              Please upload Aadhaar/PAN (PDF or image, ≤ 2MB).
+            </span>
+          </div>
+
+          <div class="form-group">
+            <label for="openTime">Opening Time *</label>
+            <input type="time" id="openTime" name="openTime" required />
+            <span class="error" data-for="openTime"
+              >Opening time is required.</span
+            >
+          </div>
+
+          <div class="form-group">
+            <label for="closeTime">Closing Time *</label>
+            <input type="time" id="closeTime" name="closeTime" required />
+            <span class="error" data-for="closeTime"
+              >Closing time is required (and must be after opening).</span
+            >
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="address">Full Address *</label>
+            <textarea id="address" name="address" required></textarea>
+            <span class="error" data-for="address">Address is required.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="city">City *</label>
+            <input type="text" id="city" name="city" required />
+            <span class="error" data-for="city">City is required.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="state">State *</label>
+            <input type="text" id="state" name="state" required />
+            <span class="error" data-for="state">State is required.</span>
+          </div>
+
+          <div class="form-group">
+            <label for="pincode">Pincode *</label>
+            <input
+              type="text"
+              id="pincode"
+              name="pincode"
+              maxlength="6"
+              pattern="\\d{6}"
+              required
+            />
+            <span class="error" data-for="pincode"
+              >Enter a valid 6-digit pincode.</span
+            >
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="description">Short Description *</label>
+            <textarea
+              id="description"
+              name="description"
+              required
+              placeholder="What makes your shop special?"
+            ></textarea>
+            <span class="error" data-for="description"
+              >Description is required.</span
+            >
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="tags"
+              >Tags (comma separated, e.g., organic, budget, tech)</label
+            >
+            <input
+              type="text"
+              id="tags"
+              name="tags"
+              placeholder="e.g., organic, budget, cakes"
+            />
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="password">Shop Login Password *</label>
+            <input type="password" id="password" name="password" minlength="6" required placeholder="Create a password (min 6 characters)" />
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label for="logo">Shop Logo / Image (max 2MB, optional)</label>
+            <input type="file" id="logo" name="logo" accept="image/*" />
+            <span class="error" data-for="logo"
+              >File must be an image &lt;= 2MB.</span
+            >
+          </div>
+
+          <div class="form-group" style="grid-column: 1 / -1">
+            <label class="inline">
+              <input type="checkbox" id="terms" name="terms" />
+              I agree to the Terms & Conditions *
+            </label>
+            <span class="error" data-for="terms"
+              >You must agree before submitting.</span
+            >
+          </div>
+        </div>
+
+        <div class="actions">
+          <button type="reset" class="btn secondary">Reset</button>
+          <button type="submit" class="btn">Submit</button>
+        </div>
+        <div class="extra-links">
+          <p>Already Registered? <a href="shopLogin.html">Login</a></p>
+        </div>
+      </form>
+    </div>
+
+    <footer class="footer">
+      <p>&copy; 2025 LocalLink. All rights reserved.</p>
+    </footer>
+
+    <script>
+const form=document.getElementById("shopForm"),successBox=document.getElementById("successBox");
+form.addEventListener("submit",async function(e){e.preventDefault();successBox.style.display="none";const password=document.getElementById("password").value,proof=form.ownerIdProof.files[0],logo=form.logo.files[0];if(password.length<6){alert("Shop password must be at least 6 characters.");return;}if(!form.terms.checked){alert("You must agree to the Terms & Conditions.");return;}if(!proof||proof.size>2*1024*1024){alert("Owner ID proof is required and must be under 2MB.");return;}if(logo&&logo.size>2*1024*1024){alert("Logo must be under 2MB.");return;}try{const r=await fetch("/api/shops/register",{method:"POST",body:new FormData(form)});const d=await r.json();if(!r.ok)throw Error(d.message);successBox.textContent="Shop registered successfully! You can now log in.";successBox.style.display="block";form.reset();window.scrollTo({top:0,behavior:"smooth"});}catch(e){alert(e.message||"Unable to connect to the server.");}});
+
+fetch(url, {
+  method: 'POST',
+  credentials: 'include',              // ← add this
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+
+// AFTER
+fetch('/api/auth/me', { credentials: 'include' })
+  .then(r => r.json())
+  .then(({ user }) => { if (!user) location.href = '/login.html'; });
+</script>
+  </body>
+</html>

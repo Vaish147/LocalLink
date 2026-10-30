@@ -1,0 +1,309 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalLink Admin Dashboard</title>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <style>
+      :root {
+        --primary: #2563eb;
+        --sidebar: #1f2937;
+        --text-light: #f9fafb;
+        --text-dark: #111827;
+        --muted: #6b7280;
+        --border: 1px solid #e5e7eb;
+        --radius: 10px;
+        --bg: #f3f4f6;
+      }
+      * {
+        box-sizing: border-box;
+      }
+      body {
+        margin: 0;
+        font-family: "Segoe UI", sans-serif;
+        display: flex;
+        height: 100vh;
+        background: var(--bg);
+        color: var(--text-dark);
+      }
+
+      /* Sidebar */
+      .sidebar {
+        width: 250px;
+        background: var(--sidebar);
+        color: var(--text-light);
+        display: flex;
+        flex-direction: column;
+        padding: 1rem 0;
+      }
+      .sidebar h2 {
+        text-align: center;
+        margin-bottom: 2rem;
+      }
+      .menu a {
+        display: block;
+        padding: 0.8rem 1.2rem;
+        color: var(--text-light);
+        text-decoration: none;
+        transition: 0.2s;
+      }
+      .menu a:hover,
+      .menu a.active {
+        background: var(--primary);
+      }
+
+      /* Main content */
+      .main {
+        flex: 1;
+        display: flex;
+        flex-direction: column;
+      }
+      .topbar {
+        background: #fff;
+        padding: 1rem 2rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        border-bottom: var(--border);
+      }
+      .admin-name {
+        font-weight: bold;
+      }
+      .logout-btn {
+        background: var(--primary);
+        color: white;
+        border: none;
+        padding: 0.5rem 1rem;
+        border-radius: var(--radius);
+        cursor: pointer;
+      }
+      .content {
+        padding: 1.5rem;
+        overflow-y: auto;
+      }
+
+      /* Cards */
+      .cards {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+        gap: 1rem;
+        margin-bottom: 2rem;
+      }
+      .card {
+        background: white;
+        padding: 1rem;
+        border-radius: var(--radius);
+        box-shadow: 0 1px 3px rgba(0, 0, 0, 0.05);
+        text-align: center;
+      }
+      .card h3 {
+        margin: 0.5rem 0;
+        font-size: 1.3rem;
+      }
+      .card p {
+        margin: 0;
+        color: var(--muted);
+      }
+
+      /* Table */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        background: white;
+        border-radius: var(--radius);
+        overflow: hidden;
+        margin-top: 1rem;
+      }
+      th,
+      td {
+        padding: 0.8rem;
+        border-bottom: var(--border);
+        text-align: left;
+      }
+      th {
+        background: #f9fafb;
+      }
+      tr:hover {
+        background: #f3f4f6;
+      }
+      .btn {
+        padding: 0.4rem 0.8rem;
+        border: none;
+        border-radius: var(--radius);
+        cursor: pointer;
+        font-size: 0.85rem;
+      }
+      .btn-approve {
+        background: #10b981;
+        color: white;
+      }
+      .btn-reject {
+        background: #ef4444;
+        color: white;
+      }
+      .btn-block {
+        background: #f97316;
+        color: white;
+      }
+
+      /* Charts */
+      .charts {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+        gap: 1rem;
+        margin-top: 2rem;
+      }
+      canvas {
+        background: white;
+        border-radius: var(--radius);
+        padding: 1rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Sidebar -->
+    <div class="sidebar">
+      <h2>LocalLink</h2>
+      <div class="menu">
+        <a href="#" class="active">Dashboard</a>
+        <a href="#">Shop Requests</a>
+        <a href="#">Manage Shops</a>
+        <a href="#">Manage Users</a>
+        <a href="#">Announcements</a>
+        <a href="#">Reports</a>
+      </div>
+    </div>
+
+    <!-- Main -->
+    <div class="main">
+      <div class="topbar">
+        <div class="admin-name">Welcome, Admin</div>
+        <button class="logout-btn">Logout</button>
+      </div>
+
+      <div class="content">
+        <!-- Dashboard Cards -->
+        <div class="cards">
+          <div class="card">
+            <h3 id="totalShops">12</h3>
+            <p>Total Shops</p>
+          </div>
+          <div class="card">
+            <h3 id="pendingShops">3</h3>
+            <p>Pending Approvals</p>
+          </div>
+          <div class="card">
+            <h3 id="totalUsers">58</h3>
+            <p>Total Users</p>
+          </div>
+          <div class="card">
+            <h3 id="blockedShops">1</h3>
+            <p>Blocked Shops</p>
+          </div>
+        </div>
+
+        <!-- Shop Approval Requests -->
+        <h2>Pending Shop Requests</h2>
+        <table>
+          <thead>
+            <tr>
+              <th>Shop Name</th>
+              <th>Owner</th>
+              <th>Category</th>
+              <th>Actions</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr>
+              <td>Urban Styles</td>
+              <td>Ravi Kumar</td>
+              <td>Clothing</td>
+              <td>
+                <button class="btn btn-approve">Approve</button>
+                <button class="btn btn-reject">Reject</button>
+              </td>
+            </tr>
+            <tr>
+              <td>FreshMart</td>
+              <td>Priya Sharma</td>
+              <td>Grocery</td>
+              <td>
+                <button class="btn btn-approve">Approve</button>
+                <button class="btn btn-reject">Reject</button>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+
+        <!-- Charts Section -->
+        <div class="charts">
+          <canvas id="shopsChart"></canvas>
+          <canvas id="usersChart"></canvas>
+        </div>
+      </div>
+    </div>
+
+    <script>
+      // Chart 1: Shops per Category (Bar Chart)
+      new Chart(document.getElementById("shopsChart"), {
+        type: "bar",
+        data: {
+          labels: ["Grocery", "Clothing", "Electronics", "Books", "Others"],
+          datasets: [
+            {
+              label: "Shops per Category",
+              data: [5, 3, 2, 1, 1],
+              backgroundColor: "#2563eb",
+            },
+          ],
+        },
+        options: { responsive: true },
+      });
+
+      // Chart 2: Users per Month (Line Chart)
+      new Chart(document.getElementById("usersChart"), {
+        type: "line",
+        data: {
+          labels: ["Jan", "Feb", "Mar", "Apr", "May", "Jun"],
+          datasets: [
+            {
+              label: "New Users",
+              data: [5, 8, 12, 20, 15, 25],
+              borderColor: "#10b981",
+              fill: false,
+              tension: 0.3,
+            },
+          ],
+        },
+        options: { responsive: true },
+      });
+
+      fetch(url, {
+  method: 'POST',
+  credentials: 'include',              // ← add this
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+
+// AFTER
+fetch('/api/auth/me', { credentials: 'include' })
+  .then(r => r.json())
+  .then(({ user }) => { if (!user) location.href = '/login.html'; });
+
+  const stats = await (await fetch('/api/admin/stats', { credentials: 'include' })).json();
+const pending = await (await fetch('/api/admin/shops?status=pending', { credentials: 'include' })).json();
+
+// approve button
+await fetch(`/api/admin/shops/${id}/approve`, { method: 'POST', credentials: 'include' });
+
+// reject button
+await fetch(`/api/admin/shops/${id}/reject`, {
+  method: 'POST',
+  credentials: 'include',
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify({ reason: prompt('Reason for rejection?') })
+});
+    </script>
+  </body>
+</html>

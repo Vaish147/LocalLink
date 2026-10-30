@@ -1,0 +1,308 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocalLink - Home</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+</head>
+
+<body>
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo">LocalLink</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="login.html" id="loginLink">Login</a></li>
+          <li><a href="signup.html" id="signupLink">Sign Up</a></li>
+          <li><a href="Register.html" class="btn">Register Business</a></li>
+          <li id="profileIcon" style="display: none">
+            <a href="userProfile.html">
+              <img src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png" alt="User"
+                style="height: 40px; border-radius: 50%" />
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+
+  <section class="hero full-screen">
+    <div class="hero-text">
+      <h1>Empowering Local Businesses</h1>
+      <h4>
+        Discover, connect, and support the shops that make your neighborhood
+        thrive.
+      </h4>
+      <a href="explore.html" class="btn">Start Exploring</a>
+    </div>
+  </section>
+
+  <section class="features">
+    <h2>Why LocalLink?</h2>
+    <div class="grid">
+      <div class="feature-card">
+        <img src="/Images/nearby.png" alt="Nearby Discovery" />
+        <h3>Nearby Discovery</h3>
+        <p>
+          Find and support local shops around you using real-time GPS.
+          Discover hidden gems in your neighborhood with just a tap
+        </p>
+      </div>
+      <div class="feature-card">
+        <img src="/Images/Real-offers.png" alt="Real-offers" />
+        <h3>Real Offers</h3>
+        <p>
+          Discover local-only offers and discounts — because your neighborhood
+          should be your first choice..
+        </p>
+      </div>
+      <div class="feature-card">
+        <img src="/Images/user-reviews.png" alt="user-reviews" />
+        <h3>Shop Ratings</h3>
+        <p>
+          Read honest feedback from real customers to make better choices.
+          Rate your favorite shops and share your experience with others.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <section class="shop-showcase">
+    <h2 class="trend-heading">Top Trending Shops</h2>
+
+    <div class="shop-grid"></div>
+
+    <template id="shop-template">
+      <div class="card">
+        <img class="shop-image" src="" alt="" />
+        <h4 class="shop-name"></h4>
+        <p class="shop-description"></p>
+      </div>
+    </template>
+  </section>
+
+  <div class="review-header">
+    <h2>Customer Review</h2>
+  </div>
+
+  <div class="carousel-container">
+    <div class="carousel-track" id="carouselTrack">
+      <!-- Slide 1 -->
+      <div class="carousel-slide">
+        <p class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique culpa ut amet voluptas
+          asperiores alias sed consequatur.</p>
+        <div class="reviewer">
+          <img src="Images/review-1.jpg" alt="review_image">
+          <div class="reviewer-info">
+            <p class="name">John Deo</p>
+            <p>Designer</p>
+          </div>
+          <span class="quote-icon">”</span>
+        </div>
+      </div>
+
+      <!-- Slide 2 -->
+      <div class="carousel-slide">
+        <p class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique culpa ut amet voluptas
+          asperiores alias sed consequatur.</p>
+        <div class="reviewer">
+          <img src="Images/review-2.jpg" alt="review_image">
+          <div class="reviewer-info">
+            <p class="name">John Deo</p>
+            <p>Designer</p>
+          </div>
+          <span class="quote-icon">”</span>
+        </div>
+      </div>
+
+      <!-- Slide 3 -->
+      <div class="carousel-slide">
+        <p class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique culpa ut amet voluptas
+          asperiores alias sed consequatur.</p>
+        <div class="reviewer">
+          <img src="Images/review-3.jpg" alt="review_image">
+          <div class="reviewer-info">
+            <p class="name">John Deo</p>
+            <p>Designer</p>
+          </div>
+          <span class="quote-icon">”</span>
+        </div>
+      </div>
+
+      <!-- Slide 4 -->
+      <div class="carousel-slide">
+        <p class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique culpa ut amet voluptas
+          asperiores alias sed consequatur.</p>
+        <div class="reviewer">
+          <img src="Images/review-4.jpg" alt="review_image">
+          <div class="reviewer-info">
+            <p class="name">John Deo</p>
+            <p>Designer</p>
+          </div>
+          <span class="quote-icon">”</span>
+        </div>
+      </div>
+
+      <!-- Slide 5 -->
+      <div class="carousel-slide">
+        <p class="review-text">Lorem ipsum dolor sit amet consectetur adipisicing elit. Similique culpa ut amet voluptas
+          asperiores alias sed consequatur.</p>
+        <div class="reviewer">
+          <img src="Images/review-1.jpg" alt="review_image">
+          <div class="reviewer-info">
+            <p class="name">John Deo</p>
+            <p>Designer</p>
+          </div>
+          <span class="quote-icon">”</span>
+        </div>
+      </div>
+    </div>
+
+    <div class="pagination" id="pagination"></div>
+  </div>
+  </section>
+
+<script>
+    const track = document.getElementById('carouselTrack');
+    const slides = document.querySelectorAll('.carousel-slide');
+    const pagination = document.getElementById('pagination');
+
+    let currentIndex = 0;
+    let intervalId;
+    let slideCount = slides.length;
+
+    // Create dots
+    for (let i = 0; i < slideCount; i++) {
+      const dot = document.createElement('span');
+      if (i === 0) dot.classList.add('active');
+      dot.addEventListener('click', () => {
+        currentIndex = i;
+        updateCarousel();
+      });
+      pagination.appendChild(dot);
+    }
+
+    function getSlidesPerView() {
+      if (window.innerWidth >= 1024) return 3;
+      if (window.innerWidth >= 768) return 2;
+      return 1;
+    }
+
+    function updateCarousel() {
+      const slidesPerView = getSlidesPerView();
+      const offset = currentIndex * (100 / slidesPerView);
+      track.style.transform = `translateX(-${offset}%)`;
+
+      document.querySelectorAll('.pagination span').forEach((dot, i) => {
+        dot.classList.toggle('active', i === currentIndex);
+      });
+    }
+
+    function autoSlide() {
+      const slidesPerView = getSlidesPerView();
+      currentIndex = (currentIndex + 1) % Math.ceil(slideCount / slidesPerView);
+      updateCarousel();
+    }
+
+    function startAutoSlide() {
+      intervalId = setInterval(autoSlide, 3000);
+    }
+
+    function stopAutoSlide() {
+      clearInterval(intervalId);
+    }
+
+    window.addEventListener('resize', updateCarousel);
+    track.addEventListener('mouseenter', stopAutoSlide);
+    track.addEventListener('mouseleave', startAutoSlide);
+
+    startAutoSlide();
+    updateCarousel();
+  </script>
+
+<section class="cta">
+  <h2>Are You a Shop Owner?</h2>
+  <p>
+    Join LocalLink and start getting discovered by hundreds of nearby
+    customers.
+  </p>
+  <a href="Register.html" class="btn">Join Now</a>
+</section>
+
+<footer class="footer">
+  <p>&copy; 2025 LocalLink. All rights reserved.</p>
+</footer>
+
+<script>
+  const shops = [
+    {
+      name: "Fresh Mart",
+      image:
+        "https://media.istockphoto.com/id/693171708/photo/fresh-vegetables-on-shelf-in-supermarket.webp?a=1&b=1&s=612x612&w=0&k=20&c=VLrqyinxLNu5n7l7TNUYNT2Oxa-Oli9gyl1VZeHNw8c=",
+      description:
+        "Your neighborhood grocery store with fresh produce and local products.",
+    },
+    {
+      name: "Style Boutique",
+      image:
+        "https://images.unsplash.com/photo-1572611932849-7f0f116fb2f1?q=80&w=1170&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Trendy outfits at great prices. Fashion that fits your style.",
+    },
+    {
+      name: "ElectroWorld",
+      image:
+        "https://plus.unsplash.com/premium_photo-1714618990464-bb4ddc34c542?q=80&w=2021&auto=format&fit=crop&ixlib=rb-4.1.0&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D",
+      description:
+        "Latest gadgets and tech. Stay ahead with the newest electronics.",
+    },
+  ];
+
+  const tpl = document.getElementById("shop-template");
+  const grid = document.getElementsByClassName("shop-grid")[0];
+
+  function trendingShops(list) {
+    list.forEach((s) => {
+      const node = tpl.content.cloneNode(true);
+      node.querySelector(".shop-image").src = s.image;
+      node.querySelector(".shop-name").textContent = s.name;
+      node.querySelector(".shop-description").textContent = s.description;
+      grid.appendChild(node);
+    });
+  }
+
+  document.addEventListener("DOMContentLoaded", () => {
+    trendingShops(shops);
+  });
+
+  const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+  if (loggedInUser) {
+    // Show profile icon
+    document.getElementById("profileIcon").style.display = "inline-block";
+
+    // Optionally: hide login/signup
+    document.getElementById("loginLink").style.display = "none";
+    document.getElementById("signupLink").style.display = "none";
+
+    fetch(url, {
+  method: 'POST',
+  credentials: 'include',              // ← add this
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+  }
+
+  // AFTER
+fetch('/api/auth/me', { credentials: 'include' })
+  .then(r => r.json())
+  .then(({ user }) => { if (!user) location.href = '/login.html'; });
+</script>
+</body>
+
+</html>

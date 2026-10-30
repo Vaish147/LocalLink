@@ -1,0 +1,1045 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>LocalLink – Shop Profile</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/remixicon/4.2.0/remixicon.min.css">
+  <style>
+    :root {
+      --brand-dark: #0b2545;
+      --brand-mid: #274c77;
+      --brand-accent: #fcca46;
+      --text: #102a43;
+      --muted: #617d98;
+      --radius: 18px;
+      --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+      --bg-soft: #f5f7fb;
+      --border: #e6ecf1;
+
+      /* Add these missing ones */
+      --primary: #0b2545;
+      --accent: #fcca46;
+      --card: #ffffff;
+      --teal: #10b981;
+    }
+
+    .chat-popup {
+      z-index: 9999;
+      /* add this */
+    }
+
+    body {
+      background-color: #bddfff;
+      backdrop-filter: blur(100);
+    }
+
+    /* ---------- HERO ---------- */
+    .shop-hero {
+      position: relative;
+      height: 220px;
+      background: #cccccc url("https://media.istockphoto.com/id/1131005373/photo/kitchen-fresh-colorful-organic-vegetables-on-worktop.jpg?s=612x612&w=0&k=20&c=hh7dtRm6pxrpucF852hyUkgXyutk5vqFatylSdSKGaU=") center/cover no-repeat;
+      display: flex;
+      align-items: flex-end;
+      padding: 0 1rem;
+    }
+
+    .shop-hero::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(11, 37, 69, 0.55);
+    }
+
+    .shop-hero-inner {
+      width: 100%;
+      max-width: 1200px;
+      margin: 0 auto;
+      position: relative;
+      z-index: 2;
+      display: flex;
+      justify-content: space-between;
+      align-items: flex-end;
+      gap: 1rem;
+      padding: 0 0 1rem;
+    }
+
+    .shop-left {
+      display: flex;
+      align-items: flex-end;
+      gap: 1rem;
+      flex: 1;
+      min-width: 0;
+    }
+
+    .shop-avatar {
+      width: 150px;
+      height: 150px;
+      border-radius: 50%;
+      border: 4px solid #fff;
+      object-fit: cover;
+      background: #fff;
+      flex-shrink: 0;
+    }
+
+    .shop-details {
+      color: #fff;
+      min-width: 0;
+    }
+
+    .shop-details h1 {
+      margin: 0 0 0.25rem;
+      font-size: 1.9rem;
+      line-height: 1.1;
+      word-break: break-word;
+    }
+
+    .badge-open {
+      background: #10b981;
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.15rem 0.55rem;
+      font-size: 0.8rem;
+      font-weight: 600;
+      margin-left: 0.35rem;
+    }
+
+    .rating {
+      color: #fcca46;
+      font-weight: 600;
+      margin-bottom: 0.45rem;
+    }
+
+    .tags {
+      display: flex;
+      gap: 0.4rem;
+      flex-wrap: wrap;
+    }
+
+    .tag {
+      background: rgba(255, 255, 255, 0.15);
+      border: 1px solid rgba(255, 255, 255, 0.25);
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.2rem 0.7rem;
+      font-size: 0.85rem;
+    }
+
+    .shop-actions {
+      display: flex;
+      gap: 0.5rem;
+      flex-wrap: wrap;
+      justify-content: flex-end;
+    }
+
+    .btn-outline {
+      background: transparent;
+      border: 1px solid rgba(255, 255, 255, 0.5);
+      color: #fff;
+      border-radius: 9999px;
+      padding: 0.4rem 0.95rem;
+      font-weight: 600;
+      text-decoration: none;
+      transition: 0.2s;
+    }
+
+    .btn-outline:hover {
+      background: rgba(255, 255, 255, 0.2);
+    }
+
+    /* ---------- PAGE ---------- */
+    .page {
+      max-width: 1200px;
+      margin: 0 auto;
+      padding: 1.5rem 1rem 3rem;
+      background: #daebfd;
+      backdrop-filter: blur(1000);
+    }
+
+    .section {
+      background: #fff;
+      border-radius: var(--radius);
+      box-shadow: var(--shadow);
+      border: 1px solid var(--border);
+      padding: 1.5rem 1.4rem;
+      margin-bottom: 1.25rem;
+    }
+
+    .section h2 {
+      margin: 0 0 1rem;
+      color: var(--brand-dark);
+      font-size: 1.35rem;
+    }
+
+    .about p {
+      color: var(--muted);
+      line-height: 1.6;
+    }
+
+    /* ---------- INFO GRID ---------- */
+    .info-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
+      gap: 1rem;
+    }
+
+    .info-block {
+      border: 1px solid var(--border);
+      border-radius: 12px;
+      padding: 1rem;
+      background: #fafbfc;
+    }
+
+    .info-block h4 {
+      margin: 0 0 0.5rem;
+      color: var(--brand-mid);
+    }
+
+    .info-block p,
+    .info-block a,
+    .info-block li {
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .info-block ul {
+      margin: 0;
+      padding-left: 1rem;
+    }
+
+    /* ---------- HOURS ---------- */
+    .hours {
+      width: 100%;
+      border-collapse: collapse;
+      font-size: 0.95rem;
+    }
+
+    .hours td {
+      padding: 0.36rem 0;
+      border-bottom: 1px dashed #e2e8f0;
+    }
+
+    .hours tr:last-child td {
+      border-bottom: none;
+    }
+
+    .hours .today {
+      color: #0b2545;
+      font-weight: 600;
+    }
+
+    /* ---------- GALLERY ---------- */
+    .gallery-grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+      gap: 0.75rem;
+    }
+
+    .gallery-grid img {
+      width: 100%;
+      height: 180px;
+      object-fit: cover;
+      border-radius: 10px;
+    }
+
+    /* ---------- REVIEWS ---------- */
+    .review {
+      border-bottom: 1px solid var(--border);
+      padding-bottom: 1rem;
+      margin-bottom: 1rem;
+    }
+
+    .review:last-child {
+      border-bottom: none;
+      margin-bottom: 0;
+      padding-bottom: 0;
+    }
+
+    .review .name {
+      font-weight: 600;
+      color: var(--brand-mid);
+    }
+
+    .review .stars {
+      color: #f4b400;
+      margin-left: 0.25rem;
+    }
+
+    .review p {
+      color: var(--text);
+      margin: 0.35rem 0 0;
+      font-size: 0.95rem;
+      line-height: 1.5;
+    }
+
+    .star {
+      font-size: 24px;
+      color: #ccc;
+      cursor: pointer;
+      transition: color 0.2s;
+    }
+
+    .star.selected,
+    .star.hovered {
+      color: gold;
+    }
+
+    /* ---------- MAP ---------- */
+    .map-holder {
+      height: 320px;
+      border-radius: 12px;
+      background: #e9eff5;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #617d98;
+      font-size: 0.95rem;
+    }
+
+    /* ---------- SPECIAL OFFERS ---------- */
+    .special-offers ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+
+    .special-offers li {
+      background: #fef9e7;
+      border: 1px solid #fcca46;
+      border-radius: 10px;
+      padding: 0.6rem 0.8rem;
+      margin-bottom: 0.5rem;
+      color: #0b2545;
+      font-weight: 500;
+    }
+
+    @media (max-width: 768px) {
+      .shop-hero {
+        height: auto;
+        padding: 0 0 0.75rem;
+      }
+
+      .shop-hero-inner {
+        flex-direction: column;
+        align-items: flex-start;
+        padding: 1rem;
+      }
+
+      .shop-actions {
+        justify-content: flex-start;
+      }
+    }
+
+    /* ========== CHAT POPUP ========== */
+    .contact-fixed {
+      position: fixed;
+      right: 20px;
+      bottom: 22px;
+      z-index: 100;
+    }
+
+    .contact-btn {
+      background: linear-gradient(180deg, #fcca46, #fcca46);
+      color: #fff;
+      border: none;
+      padding: 0.7rem 1rem;
+      border-radius: 999px;
+      box-shadow: 0 6px 20px rgba(30, 57, 50, 0.18);
+      cursor: pointer;
+      font-weight: 700;
+      display: flex;
+      align-items: center;
+      gap: 0.6rem;
+    }
+
+    .contact-btn .dot {
+      width: 10px;
+      height: 10px;
+      background: var(--teal);
+      border-radius: 999px;
+      box-shadow: 0 4px 12px rgba(45, 212, 191, 0.25);
+    }
+
+    .chat-popup {
+      position: fixed;
+      right: 20px;
+      bottom: 90px;
+      width: 340px;
+      background: var(--card);
+      border-radius: 12px;
+      box-shadow: 0 18px 50px rgba(11, 37, 69, 0.16);
+      overflow: hidden;
+      display: flex;
+      flex-direction: column;
+      transform: translateY(18px);
+      opacity: 0;
+      pointer-events: none;
+      transition: all 0.28s ease;
+    }
+
+    .chat-popup.open {
+      transform: translateY(0);
+      opacity: 1;
+      pointer-events: auto;
+    }
+
+    .chat-head {
+      background: linear-gradient(90deg, var(--primary), #fcca46);
+      color: #fff;
+      padding: 0.8rem 1rem;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+    }
+
+    .chat-messages {
+      padding: 0.8rem;
+      height: 280px;
+      overflow: auto;
+      display: flex;
+      flex-direction: column;
+      gap: 0.6rem;
+      background: linear-gradient(180deg, #fbfffd, #f7f9f8);
+    }
+
+    .bubble {
+      max-width: 78%;
+      padding: 0.55rem 0.75rem;
+      border-radius: 12px;
+      font-size: 0.95rem;
+    }
+
+    .bubble.user {
+      align-self: flex-end;
+      background: var(--primary);
+      color: white;
+      border-bottom-right-radius: 4px;
+    }
+
+    .bubble.shop {
+      align-self: flex-start;
+      background: #eef6f0;
+      color: var(--text);
+      border-bottom-left-radius: 4px;
+    }
+
+    .chat-input-area {
+      display: flex;
+      padding: 0.6rem;
+      border-top: 1px solid rgba(11, 37, 69, 0.04);
+    }
+
+    .chat-input-area input {
+      flex: 1;
+      padding: 0.55rem;
+      border-radius: 10px;
+      border: 1px solid rgba(11, 37, 69, 0.06);
+      margin-right: 0.5rem;
+    }
+
+    .chat-send {
+      background: var(--accent);
+      border: none;
+      padding: 0.55rem 0.8rem;
+      border-radius: 10px;
+      cursor: pointer;
+      font-weight: 800;
+      color: #3b2a08;
+    }
+
+    /* ========== RESPONSIVE ========== */
+    @media (max-width: 980px) {
+      .products-grid {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .page {
+        grid-template-columns: 1fr 320px;
+      }
+    }
+
+    @media (max-width: 760px) {
+      .hero {
+        flex-direction: column;
+        align-items: center;
+      }
+
+      .hero-card {
+        align-items: center;
+        padding: 1rem;
+      }
+
+      .shop-meta {
+        text-align: center;
+      }
+
+      .hero-actions {
+        justify-content: center;
+      }
+
+      .page {
+        grid-template-columns: 1fr;
+        padding: 0 0.9rem;
+      }
+
+      .products-grid {
+        grid-template-columns: 1fr;
+      }
+
+      .gallery {
+        grid-template-columns: repeat(2, 1fr);
+      }
+
+      .chat-popup {
+        right: 14px;
+        left: 14px;
+        width: auto;
+        max-width: 420px;
+      }
+    }
+
+    /* small helpers */
+    .muted {
+      color: var(--muted);
+    }
+
+    .mb-6 {
+      margin-bottom: 1.5rem;
+    }
+
+    .title {
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+    }
+
+    .cta-follow {
+      background: #fcca46;
+      color: var(--text);
+      padding: 0.5rem 0.9rem;
+      border-radius: 999px;
+      font-weight: 700;
+      border: none;
+      cursor: pointer;
+      box-shadow: 0 8px 20px rgba(255, 184, 107, 0.12);
+    }
+
+    .cta-follow:hover {
+      transform: translateY(-3px);
+    }
+
+    .hero-banner {
+      position: relative;
+      background: url('shop-banner.jpg') center/cover no-repeat;
+      height: 300px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: white;
+      text-align: center;
+    }
+
+    .hero-banner::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    .hero-content {
+      position: relative;
+      z-index: 2;
+    }
+
+    .edit-hero-btn {
+      background: #fcca46;
+      border: none;
+      padding: 6px 12px;
+      border-radius: 5px;
+      margin-top: 10px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+
+<body>
+  <!-- Navbar (re-using yours) -->
+  <header class="navbar">
+    <div class="container">
+      <h1 class="logo">LocalLink</h1>
+      <nav>
+        <ul>
+          <li><a href="index.html">Home</a></li>
+          <li><a href="explore.html">Explore</a></li>
+          <li><a href="login.html">Login</a></li>
+          <li><a href="signup.html">Sign Up</a></li>
+          <li><a href="register.html" class="btn">Register Business</a></li>
+        </ul>
+      </nav>
+    </div>
+  </header>
+  <!-- HERO -->
+  <section class="shop-hero">
+    <div class="shop-hero-inner">
+      <div class="shop-left"> <img class="shop-avatar"
+          src="https://img.freepik.com/premium-vector/supermarket-logo-with-vegetables-inside-shopping-cart-logo_513640-3229.jpg"
+          alt="Shop Logo" />
+        <div class="shop-details">
+          <h1>Fresh Mart <span class="badge-open">Open now</span></h1>
+          <div class="rating">⭐ 4.8 · 1,245 reviews</div>
+          <div class="tags"> <span class="tag">Groceries</span> <span class="tag">Organic</span> <span
+              class="tag">Vegetables</span> </div>
+        </div>
+      </div>
+      <div class="shop-actions"> <a class="btn-outline" href="tel:+919922590122">Call</a> <a class="btn-outline"
+          href="#map">Directions</a> <a class="btn-outline" href="#">Share</a> </div>
+      <button class="btn-sm cta-follow" id="followBtn">Follow</button>
+      <button class="edit-hero-btn" id="editHeroBtn"><i class="ri-pencil-line"></i></button>
+    </div>
+  </section>
+  <!-- BODY -->
+  <main class="page">
+    <!-- ABOUT -->
+    <section class="section about">
+      <h2>About</h2>
+      <p> Fresh Mart is your neighborhood’s go-to store for organic fruits, fresh vegetables, and daily essentials. We
+        believe in sourcing locally and delivering quality at honest prices. </p>
+    </section>
+    <!-- INFO GRID -->
+    <section class="section">
+      <h2>Info</h2>
+      <div class="info-grid">
+        <div class="info-block">
+          <h4>Address</h4>
+          <p>12, MG Road, Andheri West, Mumbai – 400053</p>
+        </div>
+        <div class="info-block">
+          <h4>Contact</h4>
+          <p>+91 99999 99999</p>
+          <p><a href="mailto:freshmart@gmail.com">freshmart@gmail.com</a></p>
+          <p> <a href="https://freshmart.example.com" target="_blank">freshmart.example.com</a> </p>
+        </div>
+        <div class="info-block">
+          <h4>Opening Hours</h4>
+          <table class="hours">
+            <tr>
+              <td class="today">Mon</td>
+              <td class="today">08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Tue</td>
+              <td>08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Wed</td>
+              <td>08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Thu</td>
+              <td>08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Fri</td>
+              <td>08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Sat</td>
+              <td>08:00 – 21:00</td>
+            </tr>
+            <tr>
+              <td>Sun</td>
+              <td>09:00 – 18:00</td>
+            </tr>
+          </table>
+        </div>
+        <div class="info-block">
+          <h4>Payment Methods</h4>
+          <ul>
+            <li>UPI</li>
+            <li>Cash</li>
+            <li>Credit/Debit Cards</li>
+          </ul>
+        </div>
+      </div>
+    </section>
+    <!-- SPECIAL OFFERS -->
+    <section class="section special-offers">
+      <h2>Special Offers</h2>
+      <ul>
+        <li><strong>10% OFF</strong> on all organic vegetables this week!</li>
+        <li>Buy 1 Get 1 Free on select fruits every Friday.</li>
+        <li>Free home delivery on orders above ₹500.</li>
+      </ul>
+    </section>
+    <!-- GALLERY -->
+    <section class="section">
+      <h2>Gallery</h2>
+      <div class="gallery-grid"> <img src="https://picsum.photos/seed/g1/800/600" alt="" /> <img
+          src="https://picsum.photos/seed/g2/800/600" alt="" /> <img src="https://picsum.photos/seed/g3/800/600"
+          alt="" /> <img src="https://picsum.photos/seed/g4/800/600" alt="" /> <img
+          src="https://picsum.photos/seed/g5/800/600" alt="" /> <img src="https://picsum.photos/seed/g6/800/600"
+          alt="" /> </div>
+    </section>
+    <!-- REVIEWS -->
+    <section class="section" id="reviews">
+      <h2>Reviews (1,245)</h2>
+      <div class="review">
+        <div class="name">Aditi Sharma <span class="stars">★★★★★</span></div>
+        <p> Always fresh, staff is friendly, and prices are fair. Love the organic section! </p>
+      </div>
+      <div class="review">
+        <div class="name">Raj Patel <span class="stars">★★★★☆</span></div>
+        <p> Great variety. Sometimes it gets crowded in the evenings, but worth it. </p>
+      </div>
+      <div class="review">
+        <div class="name">Neha Verma <span class="stars">★★★★★</span></div>
+        <p>My go-to place for weekly groceries. Highly recommended.</p>
+      </div> <!-- New Review Form -->
+      <div style=" margin-top: 2rem; border-top: 1px solid #e6ecf1; padding-top: 1rem; ">
+        <h3 style="margin-bottom: 0.8rem; color: #0b2545">Write a Review</h3> <input type="text" id="reviewerName"
+          placeholder="Your name"
+          style=" width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 0.7rem; " />
+        <textarea id="reviewText" placeholder="Your review..." rows="4"
+          style=" width: 100%; padding: 0.6rem; border-radius: 8px; border: 1px solid #ccc; margin-bottom: 0.7rem; "></textarea>
+        <!-- Clickable Stars -->
+        <div id="starRating" style="margin-bottom: 0.7rem"> <span class="star" data-value="1">&#9734;</span> <span
+            class="star" data-value="2">&#9734;</span> <span class="star" data-value="3">&#9734;</span> <span
+            class="star" data-value="4">&#9734;</span> <span class="star" data-value="5">&#9734;</span> </div> <button
+          onclick="submitReview()"
+          style=" padding: 0.6rem 1rem; background-color: #0b2545; color: white; border: none; border-radius: 6px; cursor: pointer; ">
+          Submit Review </button>
+      </div>
+    </section>
+    <!-- MAP -->
+    <section class="section" id="map">
+      <h2>Location</h2> <iframe
+        src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d240040.0286576387!2d73.55731928671872!3d19.940182500000002!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x3bddec6e13fd8377%3A0x215f752ad0000000!2sD%20Fresh%20Mart!5e0!3m2!1sen!2sin!4v1753516989482!5m2!1sen!2sin"
+        width="600" height="450" style="border: 0" allowfullscreen="" loading="lazy"
+        referrerpolicy="no-referrer-when-downgrade"></iframe>
+    </section>
+
+  </main>
+  <footer class="footer">
+    <p>&copy; 2025 LocalLink. All rights reserved.</p>
+  </footer>
+
+  <!-- CONTACT / CHAT -->
+  <div class="contact-fixed" aria-hidden="false">
+    <div style="
+          display: flex;
+          flex-direction: column;
+          align-items: flex-end;
+          gap: 8px;
+        ">
+      <button class="contact-btn" id="openChat" title="Contact shop">
+        <span style="font-size: 16px">💬</span><span>Get in Contact</span><span class="dot" aria-hidden="true"></span>
+      </button>
+      <!-- small feedback hint -->
+      <div style="
+            background: linear-gradient(90deg, #fff, #fbfffc);
+            padding: 6px 10px;
+            border-radius: 12px;
+            border: 1px solid rgba(11, 37, 69, 0.04);
+            box-shadow: 0 6px 18px rgba(11, 37, 69, 0.04);
+            font-size: 13px;
+          " class="muted">
+        Typical reply: <strong>within 10 mins</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="chat-popup" id="chatPopup" aria-hidden="true">
+    <div class="chat-head">
+      <div style="display: flex; gap: 10px; align-items: center">
+        <img
+          src="https://images.unsplash.com/photo-1542831371-d531d36971e6?q=80&w=200&auto=format&fit=crop&ixlib=rb-4.0.3&s=e5b1e0d2bd2b3b5d9778d7b6b67b5aaa"
+          alt="" style="
+              width: 42px;
+              height: 42px;
+              border-radius: 50%;
+              object-fit: cover;
+              border: 2px solid rgba(255, 255, 255, 0.12);
+            " />
+        <div>
+          <div style="font-weight: 800; color: #fff">Fresh Mart</div>
+          <div style="font-size: 12px; color: rgba(255, 255, 255, 0.9)">
+            Usually replies within 10 min
+          </div>
+        </div>
+      </div>
+      <div style="display: flex; gap: 8px; align-items: center">
+        <button onclick="closeChat()" title="Close" style="
+              background: transparent;
+              border: none;
+              color: rgba(255, 255, 255, 0.9);
+              font-size: 18px;
+              cursor: pointer;
+            ">
+          ✖
+        </button>
+      </div>
+    </div>
+
+    <div class="chat-messages" id="chatMessages" role="log" aria-live="polite">
+      <div class="bubble shop">
+        Hello! 👋 Welcome to Fresh Mart — how can I help you today?
+      </div>
+    </div>
+
+    <div class="chat-input-area">
+      <input id="chatInput" type="text" placeholder="Write a message..." aria-label="Message" />
+      <button class="chat-send" id="sendChatBtn">Send</button>
+    </div>
+  </div>
+
+  <script>
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const openChatBtn = document.getElementById("openChat");
+      const chatPopup = document.getElementById("chatPopup");
+      const chatMessages = document.getElementById("chatMessages");
+      const chatInput = document.getElementById("chatInput");
+      const sendChatBtn = document.getElementById("sendChatBtn");
+
+      // Open chat
+      openChatBtn.addEventListener("click", () => {
+        chatPopup.classList.add("open");
+        chatPopup.setAttribute("aria-hidden", "false");
+        chatInput.focus();
+        scrollChat();
+      });
+
+      // Close chat
+      window.closeChat = function () {
+        chatPopup.classList.remove("open");
+        chatPopup.setAttribute("aria-hidden", "true");
+      };
+
+      // Add a message to chat
+      function addMessage(text, who = "user") {
+        const div = document.createElement("div");
+        div.className = "bubble " + (who === "user" ? "user" : "shop");
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        scrollChat();
+      }
+
+      // Auto-scroll to bottom
+      function scrollChat() {
+        chatMessages.scrollTop = chatMessages.scrollHeight;
+      }
+
+      // Send message logic
+      function sendMessage() {
+        const txt = chatInput.value.trim();
+        if (!txt) return;
+        addMessage(txt, "user");
+        chatInput.value = "";
+        setTimeout(() => {
+          addMessage("Thanks! We'll get back to you shortly. 😊", "shop");
+        }, 800);
+      }
+
+      // Event listeners
+      sendChatBtn.addEventListener("click", sendMessage);
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
+    });
+    // ===== Follow buttons small interaction
+    document.getElementById("followBtn").addEventListener("click", () => {
+      const btn = document.getElementById("followBtn");
+      btn.textContent =
+        btn.textContent.trim() === "Follow" ? "Following" : "Follow";
+      btn.style.opacity = "0.95";
+      btn.style.transform = "scale(1.02)";
+      setTimeout(() => {
+        btn.style.transform = "";
+      }, 200);
+    });
+    document.getElementById("sidebarFollow").addEventListener("click", () => {
+      document.getElementById("followBtn").click();
+    });
+
+    // ===== Chat popup logic
+
+    document.addEventListener("DOMContentLoaded", () => {
+      const openChatBtn = document.getElementById("openChat");
+      const chatPopup = document.getElementById("chatPopup");
+      const chatMessages = document.getElementById("chatMessages");
+      const chatInput = document.getElementById("chatInput");
+      const sendChatBtn = document.getElementById("sendChatBtn");
+
+      openChatBtn.addEventListener("click", () => {
+        chatPopup.classList.add("open");
+        chatPopup.setAttribute("aria-hidden", "false");
+        chatInput.focus();
+        scrollChat();
+      });
+
+      window.closeChat = function () {
+        chatPopup.classList.remove("open");
+        chatPopup.setAttribute("aria-hidden", "true");
+      };
+
+      function addMessage(text, who = "user") {
+        const div = document.createElement("div");
+        div.className = "bubble " + (who === "user" ? "user" : "shop");
+        div.textContent = text;
+        chatMessages.appendChild(div);
+        scrollChat();
+      }
+
+      function scrollChat() {
+        chatMessages.scrollTop = chatMessages.scrollHeight + 200;
+      }
+
+      function sendMessage() {
+        const txt = chatInput.value.trim();
+        if (!txt) return;
+        addMessage(txt, "user");
+        chatInput.value = "";
+        setTimeout(() => {
+          addMessage("Thanks! We'll get back to you shortly. 😊", "shop");
+        }, 900 + Math.random() * 800);
+      }
+
+      sendChatBtn.addEventListener("click", sendMessage);
+      chatInput.addEventListener("keydown", (e) => {
+        if (e.key === "Enter") sendMessage();
+      });
+    });
+
+    // ===== Review stars logic
+    let selected = 0;
+    const stars = document.querySelectorAll("#starWrap .star");
+    stars.forEach((s) => {
+      s.addEventListener("mouseenter", () => {
+        const v = +s.dataset.v;
+        highlight(v);
+      });
+      s.addEventListener("mouseleave", () => {
+        highlight(selected);
+      });
+      s.addEventListener("click", () => {
+        selected = +s.dataset.v;
+        highlight(selected);
+      });
+    });
+    function highlight(val) {
+      stars.forEach((s) =>
+        s.classList.toggle("selected", +s.dataset.v <= val)
+      );
+    }
+
+    function submitReview() {
+      const name = document.getElementById("reviewer").value.trim();
+      const text = document.getElementById("reviewtext").value.trim();
+      if (!name || !text || selected === 0) {
+        alert("Please add your name, a message and select a rating.");
+        return;
+      }
+      // create review node
+      const node = document.createElement("div");
+      node.className = "review";
+      node.innerHTML = `
+        <img class="rev-avatar" src="https://i.pravatar.cc/52?u=${Math.random()}" alt="avatar">
+        <div class="rev-body" style="flex:1">
+          <div style="display:flex;align-items:center;justify-content:space-between">
+            <div><h5 style="display:inline;margin-right:6px">${escapeHtml(
+        name
+      )}</h5><span class="stars">${"★".repeat(selected)}${"☆".repeat(
+        5 - selected
+      )}</span></div>
+            <div class="muted" style="font-size:0.85rem">just now</div>
+          </div>
+          <p style="margin-top:6px">${escapeHtml(text)}</p>
+        </div>
+      `;
+      // insert at top of reviews list (after header)
+      const reviewsCard = document.querySelector(
+        ".reviews > div:nth-child(2)"
+      );
+      reviewsCard.parentNode.insertBefore(node, reviewsCard.nextSibling);
+      // reset
+      document.getElementById("reviewer").value = "";
+      document.getElementById("reviewtext").value = "";
+      selected = 0;
+      highlight(0);
+      alert("Thanks — your review was submitted (demo mode).");
+    }
+
+    // small helper
+    function escapeHtml(str) {
+      return str.replace(/[&<>"']/g, function (m) {
+        return {
+          "&": "&amp;",
+          "<": "&lt;",
+          ">": "&gt;",
+          '"': "&quot;",
+          "'": "&#39;",
+        }[m];
+      });
+    }
+
+    // autoscroll on load
+    window.addEventListener("load", () => {
+      window.scrollTo(0, 0);
+    });
+
+    //edit hero
+    document.addEventListener("DOMContentLoaded", () => {
+      const editHeroBtn = document.getElementById("editHeroBtn");
+
+      editHeroBtn.addEventListener("click", () => {
+        // Select elements
+        const shopLogo = document.querySelector(".shop-avatar");
+        const shopName = document.querySelector(".shop-details h1");
+        const statusBadge = document.querySelector(".badge-open");
+        const rating = document.querySelector(".rating");
+        const tagsContainer = document.querySelector(".tags");
+
+        // Prompt for new values
+        const newLogo = prompt("Enter new shop logo URL:", shopLogo.src);
+        const newName = prompt("Enter new shop name:", shopName.childNodes[0].nodeValue.trim());
+        const newStatus = prompt("Enter shop status:", statusBadge.textContent);
+        const newRating = prompt("Enter rating & reviews:", rating.textContent);
+        const newTags = prompt("Enter tags (comma separated):",
+          Array.from(tagsContainer.querySelectorAll(".tag")).map(tag => tag.textContent).join(", "));
+
+        // Apply changes if provided
+        if (newLogo) shopLogo.src = newLogo;
+        if (newName) shopName.childNodes[0].nodeValue = newName + " ";
+        if (newStatus) statusBadge.textContent = newStatus;
+        if (newRating) rating.textContent = newRating;
+
+        if (newTags) {
+          tagsContainer.innerHTML = ""; // Clear old tags
+          newTags.split(",").forEach(tagText => {
+            const span = document.createElement("span");
+            span.classList.add("tag");
+            span.textContent = tagText.trim();
+            tagsContainer.appendChild(span);
+          });
+        }
+      });
+    });
+
+
+    fetch(url, {
+  method: 'POST',
+  credentials: 'include',              // ← add this
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+
+// AFTER
+fetch('/api/auth/me', { credentials: 'include' })
+  .then(r => r.json())
+  .then(({ user }) => { if (!user) location.href = '/login.html'; });
+  </script>
+</body>
+
+</html>

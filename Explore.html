@@ -1,0 +1,401 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>LocalLink – Shops</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      :root {
+        --brand-dark: #0b2545;
+        --brand-mid: #274c77;
+        --brand-accent: #fcca46;
+        --text: #102a43;
+        --muted: #617d98;
+        --radius: 14px;
+        --shadow: 0 8px 24px rgba(0, 0, 0, 0.08);
+        --border: #e6ecf1;
+        --bg: #f0f4f8;
+        --white: #fff;
+      }
+      body {
+        background: var(--bg);
+      }
+
+      /* ---- Hero ---- */
+      .shops-hero {
+        background: linear-gradient(
+          135deg,
+          var(--brand-dark),
+          var(--brand-mid)
+        );
+        color: #fff;
+        text-align: center;
+        padding: 4.5rem 1rem 3.5rem;
+      }
+      .shops-hero h1 {
+        margin: 0 0 0.5rem;
+        font-size: clamp(2rem, 4vw, 2.8rem);
+        font-weight: 800;
+      }
+      .shops-hero p {
+        color: #d9e2ec;
+        max-width: 760px;
+        margin: 0 auto 1.8rem;
+      }
+      .search-wrap {
+        max-width: 760px;
+        margin: 0 auto;
+        display: flex;
+        gap: 0.6rem;
+        flex-wrap: wrap;
+        justify-content: center;
+      }
+      .search-input {
+        flex: 1 1 420px;
+        border: none;
+        border-radius: 9999px;
+        padding: 0.9rem 1.1rem;
+        font-size: 1rem;
+        box-shadow: var(--shadow);
+      }
+      .search-btn {
+        border: none;
+        border-radius: 9999px;
+        padding: 0.9rem 1.2rem;
+        background: var(--brand-accent);
+        color: var(--brand-dark);
+        font-weight: 700;
+        cursor: pointer;
+        box-shadow: var(--shadow);
+      }
+      .search-btn:hover {
+        background: #ffb703;
+      }
+
+      /* ---- Filters ---- */
+      .filters {
+        max-width: 1100px;
+        margin: -2.2rem auto 2rem;
+        background: #fff;
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        border: 1px solid var(--border);
+        padding: 1.25rem 1rem;
+      }
+      .filters form {
+        display: grid;
+        gap: 1rem;
+        grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+        align-items: flex-end;
+      }
+      .filters label {
+        display: block;
+        font-size: 0.85rem;
+        font-weight: 600;
+        margin-bottom: 0.25rem;
+        color: var(--brand-dark);
+      }
+      .filters input,
+      .filters select {
+        width: 100%;
+        padding: 0.65rem 0.75rem;
+        border: 1px solid #cbd5e1;
+        border-radius: 8px;
+        background: #f9fafb;
+        font-size: 0.95rem;
+      }
+      .filters button {
+        background: var(--brand-dark);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.7rem 1rem;
+        font-weight: 700;
+        cursor: pointer;
+      }
+
+      /* ---- Shops Grid ---- */
+      .page {
+        max-width: 1200px;
+        margin: 0 auto;
+        padding: 0 1rem 3rem;
+      }
+      .results-count {
+        color: var(--muted);
+        font-size: 0.95rem;
+        margin: 0.75rem 0 1rem;
+      }
+      .shops-grid {
+        display: grid;
+        grid-template-columns: repeat(auto-fit, minmax(260px, 1fr));
+        gap: 1.25rem;
+      }
+      .shop-card {
+        background: #fff;
+        border: 1px solid var(--border);
+        border-radius: var(--radius);
+        box-shadow: var(--shadow);
+        overflow: hidden;
+        display: flex;
+        flex-direction: column;
+        transition: transform 0.15s, box-shadow 0.15s;
+      }
+      .shop-card:hover {
+        transform: translateY(-2px);
+        box-shadow: 0 12px 28px rgba(0, 0, 0, 0.08);
+      }
+      .shop-img {
+        width: 100%;
+        height: 170px;
+        object-fit: cover;
+      }
+      .shop-body {
+        padding: 1rem 1rem 1.2rem;
+        display: flex;
+        flex-direction: column;
+        gap: 0.35rem;
+      }
+      .shop-title {
+        font-weight: 700;
+        color: var(--brand-dark);
+        font-size: 1.05rem;
+        margin: 0;
+        display: flex;
+        align-items: center;
+        gap: 0.4rem;
+        flex-wrap: wrap;
+      }
+      .badge-open {
+        background: #10b981;
+        color: #fff;
+        border-radius: 9999px;
+        font-size: 0.75rem;
+        padding: 0.1rem 0.5rem;
+      }
+      .rating {
+        font-weight: 600;
+        color: #f4b400;
+        font-size: 0.9rem;
+      }
+      .muted {
+        color: var(--muted);
+        font-size: 0.9rem;
+      }
+      .tag {
+        display: inline-block;
+        background: #eef2ff;
+        color: #3f4aa1;
+        font-size: 0.78rem;
+        border-radius: 9999px;
+        padding: 0.15rem 0.6rem;
+        margin-right: 0.2rem;
+      }
+      .view-btn {
+        margin-top: 0.65rem;
+        align-self: flex-start;
+        background: var(--brand-dark);
+        color: #fff;
+        border: none;
+        border-radius: 8px;
+        padding: 0.45rem 0.85rem;
+        text-decoration: none;
+        font-size: 0.9rem;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- Navbar -->
+    <header class="navbar">
+      <div class="container">
+        <h1 class="logo">LocalLink</h1>
+        <nav>
+          <ul>
+            <li><a href="index.html">Home</a></li>
+            <li><a href="explore.html">Explore</a></li>
+            <li><a href="login.html" id="loginLink">Login</a></li>
+            <li><a href="signup.html" id="signupLink">Sign Up</a></li>
+            <li><a href="Register.html" class="btn">Register Business</a></li>
+            <li id="profileIcon" style="display: none">
+              <a href="userProfile.html">
+                <img
+                  src="https://cdn-icons-png.flaticon.com/512/3135/3135715.png"
+                  alt="User"
+                  style="height: 40px; border-radius: 50%"
+                />
+              </a>
+            </li>
+          </ul>
+        </nav>
+      </div>
+    </header>
+
+    <!-- HERO -->
+    <section class="shops-hero">
+      <h1>Explore Local Shops Around You</h1>
+      <p>Browse every registered business on LocalLink.</p>
+      <form class="search-wrap" id="searchForm">
+        <input
+          class="search-input"
+          type="text"
+          id="searchInput"
+          placeholder="Search shops, categories, cities..."
+        />
+        <button class="search-btn" type="submit">Search</button>
+      </form>
+    </section>
+
+    <!-- FILTERS -->
+    <div class="filters">
+      <form id="filterForm">
+        <div>
+          <label for="category">Category</label>
+          <select id="category" name="category">
+            <option value="">All</option>
+            <option>Groceries</option>
+            <option>Fashion</option>
+            <option>Electronics</option>
+            <option>Gifts</option>
+            <option>Bakery</option>
+          </select>
+        </div>
+        <div>
+          <label for="city">City</label>
+          <input type="text" id="city" name="city" placeholder="e.g. Mumbai" />
+        </div>
+
+        <div class="apply-btn">
+          <button type="submit">Apply</button>
+        </div>
+      </form>
+    </div>
+
+    <!-- RESULTS -->
+    <main class="page">
+      <div class="results-count" id="countText"></div>
+      <div id="shopsGrid" class="shops-grid"></div>
+
+      <!-- Card Template -->
+      <template id="shopCardTpl">
+        <article class="shop-card">
+          <img class="shop-img" src="" alt="" />
+          <div class="shop-body">
+            <h3 class="shop-title">
+              <span class="shop-name"></span>
+              <span class="badge-open" style="display: none">Open now</span>
+            </h3>
+            <div class="rating">⭐ <span class="shop-rating"></span></div>
+            <div class="muted shop-meta"></div>
+            <div class="tags"></div>
+            <a class="view-btn" href="#">View Shop</a>
+          </div>
+        </article>
+      </template>
+    </main>
+
+    <footer class="footer">
+      <p>&copy; 2025 LocalLink. All rights reserved.</p>
+    </footer>
+
+    <script>
+      let shops = [];
+      const grid = document.getElementById("shopsGrid");
+      const tpl = document.getElementById("shopCardTpl");
+      const countText = document.getElementById("countText");
+
+      function renderShops(list) {
+        grid.innerHTML = "";
+        countText.textContent = `${list.length} shop${
+          list.length !== 1 ? "s" : ""
+        } found`;
+        list.forEach((s) => {
+          const node = tpl.content.cloneNode(true);
+          node.querySelector(".shop-img").src = s.image;
+          node.querySelector(".shop-img").alt = s.name;
+          node.querySelector(".shop-name").textContent = s.name;
+          node.querySelector(".shop-rating").textContent = s.rating.toFixed(1);
+          node.querySelector(
+            ".shop-meta"
+          ).textContent = `${s.city} • ${s.category}`;
+          if (s.openNow)
+            node.querySelector(".badge-open").style.display = "inline-block";
+          const tagsWrap = node.querySelector(".tags");
+          s.tags.forEach((t) => {
+            const span = document.createElement("span");
+            span.className = "tag";
+            span.textContent = t;
+            tagsWrap.appendChild(span);
+          });
+          node.querySelector(".view-btn").href = "shopProfile.html";
+          grid.appendChild(node);
+        });
+      }
+
+      // Search and filter
+      document.getElementById("searchForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        filterShops();
+      });
+      document.getElementById("filterForm").addEventListener("submit", (e) => {
+        e.preventDefault();
+        filterShops();
+      });
+
+      function filterShops() {
+        const query = document
+          .getElementById("searchInput")
+          .value.toLowerCase();
+        const category = document.getElementById("category").value;
+        const city = document.getElementById("city").value.toLowerCase();
+        const filtered = shops.filter((s) => {
+          return (
+            (!query ||
+              s.name.toLowerCase().includes(query) ||
+              s.category.toLowerCase().includes(query)) &&
+            (!category || s.category === category) &&
+            (!city || s.city.toLowerCase().includes(city))
+          );
+        });
+        renderShops(filtered);
+      }
+
+      renderShops(shops);
+
+      const loggedInUser = JSON.parse(localStorage.getItem("loggedInUser"));
+
+      if (loggedInUser) {
+        // Show profile icon
+        document.getElementById("profileIcon").style.display = "inline-block";
+
+        // Optionally: hide login/signup
+        document.getElementById("loginLink").style.display = "none";
+        document.getElementById("signupLink").style.display = "none";
+      }
+    
+      async function loadShops() {
+        const params = new URLSearchParams();
+        const q = document.getElementById("searchInput").value.trim();
+        const c = document.getElementById("category").value;
+        const city = document.getElementById("city").value.trim();
+        if(q) params.set("search", q); if(c) params.set("category", c); if(city) params.set("city", city);
+        try { const r=await fetch("/api/shops?"+params.toString()); shops=await r.json(); renderShops(shops); }
+        catch(e){ console.error(e); renderShops([]); }
+      }
+      document.getElementById("searchForm").addEventListener("submit", e=>{e.preventDefault();loadShops();});
+      document.getElementById("filterForm").addEventListener("change", loadShops);
+      loadShops();
+
+      fetch(url, {
+  method: 'POST',
+  credentials: 'include',              // ← add this
+  headers: { 'Content-Type': 'application/json' },
+  body: JSON.stringify(data)
+})
+
+// AFTER
+fetch('/api/auth/me', { credentials: 'include' })
+  .then(r => r.json())
+  .then(({ user }) => { if (!user) location.href = '/login.html'; });
+</script>
+  </body>
+</html>
